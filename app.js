@@ -7,15 +7,16 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var catalog = require('./routes/catalog');  //Import routes for "catalog" area of site
 
 var app = express();
 
 //Setup mongoose connection
 var mongoose = require('mongoose');
-var mongoDB = "mongodb://<admin>:<admin>@ds147979.mlab.com:47979/local_library";
-monggose.connect(mongoDB);
+var mongoDB = "mongodb://admin:admin@ds147979.mlab.com:47979/local_library";
+mongoose.connect(mongoDB, {useMongoClient: true});
 var db = mongoose.connection;
-db.on('error',console.error.bind(console, "MongoDB connection error:'));
+db.on('error',console.error.bind(console, 'MongoDB connection error:'));
 
 
 // view engine setup
@@ -32,6 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/catalog', catalog);  // Add catalog routes to middleware chain.
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
