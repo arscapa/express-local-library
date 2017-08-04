@@ -14,9 +14,11 @@ var app = express();
 //Setup mongoose connection
 var mongoose = require('mongoose');
 var mongoDB = "mongodb://admin:admin@ds147979.mlab.com:47979/local_library";
-mongoose.connect(mongoDB, {useMongoClient: true});
+mongoose.connect(mongoDB);
 var db = mongoose.connection;
 db.on('error',console.error.bind(console, 'MongoDB connection error:'));
+
+
 
 
 // view engine setup
