@@ -1,7 +1,7 @@
 //BookInstance Object represents a specific copy of a book someone might borrow
 
 var mongoose = require('mongoose');
-
+var moment = require('moment');
 var Schema = mongoose.Schema;
 
 var BookInstanceSchema = Schema({
@@ -18,6 +18,13 @@ BookInstanceSchema
  .get(function(){
 	return '/catalog/bookinstance/' + this._id; 
  });
+ 
+//Virtual to get formated date 
+BookInstanceSchema
+.virtual('due_back_formatted')
+.get(function () {
+  return moment(this.due_back).format('MMMM Do, YYYY');
+});
  
  //Export model
  module.exports = mongoose.model('BookInstance', BookInstanceSchema);
