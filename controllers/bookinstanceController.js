@@ -47,7 +47,7 @@ exports.bookinstance_create_post = function(req, res, next) {
 
     req.checkBody('book', 'Book must be specified').notEmpty(); //We won't force Alphanumeric, because book titles might have spaces.
     req.checkBody('imprint', 'Imprint must be specified').notEmpty();
-    req.checkBody('due_back', 'Invalid date').optional({ checkFalsy: true }).isDate();
+    //req.checkBody('due_back', 'Invalid date').optional({ checkFalsy: true }).isDate();
     
     req.sanitize('book').escape();
     req.sanitize('imprint').escape();
