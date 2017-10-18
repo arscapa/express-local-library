@@ -9,7 +9,10 @@ var expressValidator = require('express-validator');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var catalog = require('./routes/catalog');  //Import routes for "catalog" area of site
+var compression = require('compression');
+var helmet = require('helmet');
 
+//Create Express application object
 var app = express();
 
 //Setup mongoose connection
@@ -33,7 +36,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator()); // Add this after the bodyParser middlewares!
 app.use(cookieParser());
+app.use(compression()); //Compress all routes
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(helmet());
 
 app.use('/', index);
 app.use('/users', users);
